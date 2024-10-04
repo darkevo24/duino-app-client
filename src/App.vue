@@ -3,13 +3,7 @@
     <div>
       <v-app-bar app dense clipped-left elevation="2" class="main-toolbar">
         <v-btn text to="/" active-class="foobar">
-          <v-img
-            :src="require('./assets/logo.svg')"
-            alt="Home"
-            contain
-            height="100%"
-            width="2em"
-          />
+          <v-img :src="require('./assets/logo.svg')" alt="Home" contain height="100%" width="2em" />
         </v-btn>
         <v-btn text dense to="/code" class="mx-1">
           <v-icon left>mdi-code-braces</v-icon>
@@ -27,7 +21,7 @@
           <v-icon left>mdi-information</v-icon>
           About
         </v-btn>
-        <v-spacer/>
+        <v-spacer />
         <compile-btn bottom />
         <upload-btn bottom />
         <v-btn text dense @click="toggleSerialShelf">
@@ -66,82 +60,37 @@
       </div>
       <v-tabs-items :value="$store.getters.serialTab" @change="setSerialTab">
         <v-tab-item value="program" eager>
-          <compile-console height="calc(50vh - 73px)"/>
+          <compile-console height="calc(50vh - 73px)" />
         </v-tab-item>
         <v-tab-item value="monitor">
-          <serial-monitor height="calc(50vh - 96px)"/>
+          <serial-monitor height="calc(50vh - 96px)" />
         </v-tab-item>
         <v-tab-item value="plotter">
-          <serial-plotter height="calc(50vh - 96px)"/>
+          <serial-plotter height="calc(50vh - 96px)" />
         </v-tab-item>
       </v-tabs-items>
     </v-navigation-drawer>
 
     <v-footer dense app style="z-index: 10">
-      <v-row style="display: contents;">
-        <div style="line-height: 28px;">
-          <small>
-            Duino App
-            &copy;
-            {{ (new Date()).getFullYear() }}
-            &dash;
-            v{{version}}
-          </small>
-        </div>
-        <div :class="{ 'ml-2': true, 'mr-auto': $vuetify.breakpoint.mdAndDown }">
-          <v-tooltip top>
-            <template #activator="{ on }">
-              <v-btn
-                href="https://github.com/duinoapp/duinoapp-client/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                :text="!$vuetify.breakpoint.mdAndDown"
-                :icon="$vuetify.breakpoint.mdAndDown"
-                small
-                v-on="on"
-              >
-                <v-icon small left>mdi-bug-outline</v-icon>
-                {{ !$vuetify.breakpoint.mdAndDown ? 'Issues' : '' }}
-              </v-btn>
-            </template>
-            <span>Report an Issue/Bug</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <template #activator="{ on }">
-              <v-btn
-                href="https://github.com/duinoapp/duinoapp-client/wiki/Privacy-Policy"
-                target="_blank"
-                rel="noopener noreferrer"
-                :text="!$vuetify.breakpoint.mdAndDown"
-                :icon="$vuetify.breakpoint.mdAndDown"
-                small
-                v-on="on"
-              >
-                <v-icon small left>mdi-incognito</v-icon>
-                {{ !$vuetify.breakpoint.mdAndDown ? 'Privacy' : '' }}
-              </v-btn>
-            </template>
-            <span>Privacy Policy</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <template #activator="{ on }">
-              <v-btn
-                href="https://github.com/duinoapp/duinoapp-client/wiki/Terms-of-Service"
-                target="_blank"
-                rel="noopener noreferrer"
-                :text="!$vuetify.breakpoint.mdAndDown"
-                :icon="$vuetify.breakpoint.mdAndDown"
-                small
-                v-on="on"
-              >
-                <v-icon small left>mdi-scale-balance</v-icon>
-                {{ !$vuetify.breakpoint.mdAndDown ? 'Terms' : '' }}
-              </v-btn>
-            </template>
-            <span>Terms of Service</span>
-          </v-tooltip>
-        </div>
-        <v-spacer/>
+      <v-row style="display: contents">
+        <v-tooltip top>
+          <template #activator="{ on }">
+            <v-btn
+              href="https://github.com/duinoapp/duinoapp-client/wiki/Terms-of-Service"
+              target="_blank"
+              rel="noopener noreferrer"
+              :text="!$vuetify.breakpoint.mdAndDown"
+              :icon="$vuetify.breakpoint.mdAndDown"
+              small
+              v-on="on"
+            >
+              <v-icon small left>mdi-scale-balance</v-icon>
+              {{ !$vuetify.breakpoint.mdAndDown ? 'Terms' : '' }}
+            </v-btn>
+          </template>
+          <span>Terms of Service</span>
+        </v-tooltip>
+        <v-spacer />
         <serial-footer v-if="serialReady" />
         <board-footer />
         <server-footer />
