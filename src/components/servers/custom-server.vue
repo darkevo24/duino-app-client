@@ -35,7 +35,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -53,11 +52,16 @@ export default {
   },
   methods: {
     async checkUrl() {
-      if (!this.url) return;
+      // Automatically set the URL to the default if it's empty
+      if (!this.url) {
+        this.url = 'https://compile.duino.app'; // Default URL
+      }
+
       const { Server } = this.$FeathersVuex.api;
       this.serverData = null;
       this.err = '';
       const serv = { address: this.address };
+
       if ((await Server.find({ query: serv })).length) {
         this.err = 'Server already exists.';
         return;
@@ -65,7 +69,6 @@ export default {
       try {
         this.serverData = await this.$compiler.serverReq('info/server', null, serv);
       } catch (err) {
-        // eslint-disable-next-line no-console
         console.error(err);
         this.err = 'Invalid server address.';
       }
