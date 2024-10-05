@@ -27,6 +27,11 @@
         <v-btn text dense @click="toggleSerialShelf">
           <v-icon left>mdi-console</v-icon>Serial
         </v-btn>
+        <!-- Logout Button -->
+        <v-btn text dense @click="logout">
+          <v-icon left>mdi-logout</v-icon>
+          Logout
+        </v-btn>
       </v-app-bar>
     </div>
 
@@ -47,7 +52,7 @@
           <v-tabs class="shelf-tabs" :value="$store.getters.serialTab" @change="setSerialTab">
             <v-tab href="#program">Program</v-tab>
             <v-tab href="#monitor">Monitor</v-tab>
-            <v-tab href="#plotter">Plot</v-tab>
+            <v-tab href="#plotter">Plotter</v-tab>
           </v-tabs>
         </div>
         <div class="right-actions">
@@ -144,6 +149,12 @@ export default {
     checkSerialReady() {
       if (this.$serial) this.serialReady = true;
       else setTimeout(() => this.checkSerialReady(), 100);
+    },
+    logout() {
+      // Clear the authentication token
+      localStorage.removeItem('token');
+      // Redirect to login page
+      this.$router.push('/login');
     },
   },
   async mounted() {
