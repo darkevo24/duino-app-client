@@ -158,10 +158,10 @@ export default {
     },
   },
   async mounted() {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   window.location.href = 'https://fastcontrol.io/login';
-    // }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = 'https://fastcontrol.io/login';
+    }
     this.checkSerialReady();
     this.$FeathersVuex.api.File.find({ query: { $limit: 9999999 } });
     this.$FeathersVuex.api.Project.find({ query: { $limit: 9999999 } });
