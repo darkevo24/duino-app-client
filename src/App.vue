@@ -99,7 +99,6 @@
         <serial-footer v-if="serialReady" />
         <board-footer />
         <server-footer />
-        <coffee top />
       </v-row>
     </v-footer>
     <serial-prompts />
