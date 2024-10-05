@@ -1,10 +1,11 @@
 import feathers from '@feathersjs/feathers';
 import feathersVuex from 'feathers-vuex';
 import local from 'feathers-localstorage';
+import rest from '@feathersjs/rest-client'; // Import the REST client
 
 // Initialize the Feathers client with the new base URL
 const feathersClient = feathers().configure(
-  feathers.rest('https://fastcontrol.io/demo/api').fetch(window.fetch)
+  rest('https://fastcontrol.io/demo/api').fetch(window.fetch) // Use the imported rest function
 );
 
 // Set up local storage service configuration
