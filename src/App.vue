@@ -147,6 +147,10 @@ export default {
     },
   },
   async mounted() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.$router.push('/login');
+    }
     this.checkSerialReady();
     this.$FeathersVuex.api.File.find({ query: { $limit: 9999999 } });
     this.$FeathersVuex.api.Project.find({ query: { $limit: 9999999 } });
