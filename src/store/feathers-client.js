@@ -17,13 +17,17 @@ feathersClient.use('/settings', local({ ...serviceConfig, name: 'store-settings'
 export default feathersClient;
 
 // Setting up feathers-vuex
-const { makeServicePlugin, makeAuthPlugin, BaseModel, models, FeathersVuex } = feathersVuex(
+const {
+  makeServicePlugin, makeAuthPlugin, BaseModel, models, FeathersVuex,
+} = feathersVuex(
   feathersClient,
   {
     serverAlias: 'api', // optional for working with multiple APIs (this is the default value)
     idField: '_id', // Must match the id field in your database table/collection
     whitelist: ['$regex', '$options'],
-  }
+  },
 );
 
-export { makeAuthPlugin, makeServicePlugin, BaseModel, models, FeathersVuex };
+export {
+  makeAuthPlugin, makeServicePlugin, BaseModel, models, FeathersVuex,
+};

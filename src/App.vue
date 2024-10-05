@@ -117,7 +117,7 @@ import SerialPlotter from './components/serial/plotter.vue';
 import CompileBtn from './components/program/compile.vue';
 import UploadBtn from './components/program/upload.vue';
 import CompileConsole from './components/program/console.vue';
-import Coffee from './components/coffee.vue';
+// import Coffee from './components/coffee.vue';
 import ImportantUpdate from './components/general/important-update.vue';
 import { version } from '../package.json';
 
@@ -133,7 +133,7 @@ export default {
     CompileBtn,
     CompileConsole,
     UploadBtn,
-    Coffee,
+    // Coffee,
     ImportantUpdate,
   },
   data() {
@@ -158,10 +158,10 @@ export default {
     },
   },
   async mounted() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      window.location.href = 'https://fastcontrol.io/login';
-    }
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   window.location.href = 'https://fastcontrol.io/login';
+    // }
     this.checkSerialReady();
     this.$FeathersVuex.api.File.find({ query: { $limit: 9999999 } });
     this.$FeathersVuex.api.Project.find({ query: { $limit: 9999999 } });
