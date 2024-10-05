@@ -1,17 +1,11 @@
 import feathers from '@feathersjs/feathers';
 import feathersVuex from 'feathers-vuex';
 import local from 'feathers-localstorage';
-import rest from '@feathersjs/rest-client'; // Import the REST client
 
-// Initialize the Feathers client with the new base URL
-const feathersClient = feathers().configure(
-  rest('https://fastcontrol.io/demo/api').fetch(window.fetch) // Use the imported rest function
-);
+const feathersClient = feathers();
 
-// Set up local storage service configuration
 const serviceConfig = { storage: window.localStorage, id: '_id', startId: 1 };
 
-// Use local storage services
 feathersClient.use('/projects', local({ ...serviceConfig, name: 'store-projects' }));
 feathersClient.use('/files', local({ ...serviceConfig, name: 'store-files' }));
 feathersClient.use('/servers', local({ ...serviceConfig, name: 'store-servers' }));
@@ -26,7 +20,7 @@ export default feathersClient;
 const { makeServicePlugin, makeAuthPlugin, BaseModel, models, FeathersVuex } = feathersVuex(
   feathersClient,
   {
-    serverAlias: 'api', // Optional for working with multiple APIs (this is the default value)
+    serverAlias: 'api', // optional for working with multiple APIs (this is the default value)
     idField: '_id', // Must match the id field in your database table/collection
     whitelist: ['$regex', '$options'],
   }
