@@ -155,13 +155,13 @@ export default {
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       // Redirect to login page
-      this.$router.push('/https://fastcontrol.io/login');
+      this.$router.push('https://fastcontrol.io/login');
     },
   },
   async mounted() {
     const token = localStorage.getItem('token');
     if (!token) {
-      this.$router.push('/login');
+      this.$router.push('https://fastcontrol.io/login');
     }
     this.checkSerialReady();
     this.$FeathersVuex.api.File.find({ query: { $limit: 9999999 } });
