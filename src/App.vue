@@ -153,8 +153,9 @@ export default {
     logout() {
       // Clear the authentication token
       localStorage.removeItem('token');
+      localStorage.removeItem('email');
       // Redirect to login page
-      this.$router.push('/login');
+      this.$router.push('/https://fastcontrol.io/login');
     },
   },
   async mounted() {
