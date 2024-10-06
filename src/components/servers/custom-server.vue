@@ -90,6 +90,10 @@ export default {
       this.$store.commit('setCurrentServer', server.uuid);
     },
   },
+  mounted() {
+    // Automatically add server on component mount
+    this.addServer();
+  },
 };
 </script>
 
