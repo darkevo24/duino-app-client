@@ -117,7 +117,6 @@ import SerialPlotter from './components/serial/plotter.vue';
 import CompileBtn from './components/program/compile.vue';
 import UploadBtn from './components/program/upload.vue';
 import CompileConsole from './components/program/console.vue';
-// import Coffee from './components/coffee.vue';
 import ImportantUpdate from './components/general/important-update.vue';
 import { version } from '../package.json';
 
@@ -133,7 +132,6 @@ export default {
     CompileBtn,
     CompileConsole,
     UploadBtn,
-    // Coffee,
     ImportantUpdate,
   },
   data() {
@@ -141,6 +139,7 @@ export default {
       serialReady: false,
       tab: 'program',
       version,
+      defaultUrl: 'https://compile.duino.app', // Default server address
     };
   },
   methods: {
@@ -156,6 +155,32 @@ export default {
       // Redirect to login page
       window.location.href = 'https://fastcontrol.io/login';
     },
+    async initServer() {
+      // Check if the server address already exists
+      const { Server } = this.$FeathersVuex.api;
+      const serv = { address: this.defaultUrl };
+      const existingServers = await Server.find({ query: serv });
+
+      // If the server does not exist, try to add it
+      if (!existingServers.length) {
+        try {
+          const serverData = await this.$compiler.serverReq('info/server', null, serv);
+          const server = new Server({
+            ...serverData,
+            isCustom: true,
+            address: this.defaultUrl,
+            valid: true,
+          });
+          await server.save();
+          this.$store.commit('setCurrentServer', server.uuid);
+          console.log('Successfully added server:', server);
+        } catch (err) {
+          console.error('Failed to initialize server:', err);
+        }
+      } else {
+        console.log('Server already exists:', existingServers);
+      }
+    },
   },
   async mounted() {
     const token = localStorage.getItem('token');
@@ -169,6 +194,9 @@ export default {
     const { Setting } = this.$FeathersVuex.api;
     const { data } = Setting.findInStore({ query: { key: 'editor' } });
     this.$vuetify.theme.dark = /(dark)|(black)/.test(data[0]?.value?.theme ?? '');
+
+    // Initialize server on mount
+    await this.initServer();
   },
 };
 </script>
