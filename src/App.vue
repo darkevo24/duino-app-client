@@ -163,22 +163,15 @@ export default {
 
       // If the server does not exist, try to add it
       if (!existingServers.length) {
-        try {
-          const serverData = await this.$compiler.serverReq('info/server', null, serv);
-          const server = new Server({
-            ...serverData,
-            isCustom: true,
-            address: this.defaultUrl,
-            valid: true,
-          });
-          await server.save();
-          this.$store.commit('setCurrentServer', server.uuid);
-          console.log('Successfully added server:', server);
-        } catch (err) {
-          console.error('Failed to initialize server:', err);
-        }
-      } else {
-        console.log('Server already exists:', existingServers);
+        const serverData = await this.$compiler.serverReq('info/server', null, serv);
+        const server = new Server({
+          ...serverData,
+          isCustom: true,
+          address: this.defaultUrl,
+          valid: true,
+        });
+        await server.save();
+        this.$store.commit('setCurrentServer', server.uuid);
       }
     },
   },
