@@ -69,17 +69,17 @@ export default {
         return;
       }
 
-      try {
-        this.serverData = await this.$compiler.serverReq('info/server', null, serv);
-      } catch (error) {
-        console.error(error);
-        this.err = 'Invalid server address.';
-      }
-
-      // Set error if serverData is still null after the request
-      if (!this.serverData) {
-        this.err = 'Unable to connect to the server.';
-      }
+      // Using Promises to handle server request without try/catch
+      this.$compiler.serverReq('info/server', null, serv)
+        .then((data) => {
+          this.serverData = data;
+          if (!this.serverData) {
+            this.err = 'Unable to connect to the server.';
+          }
+        })
+        .catch(() => {
+          this.err = 'Invalid server address.';
+        });
     },
     async addServer() {
       await this.checkUrl();
