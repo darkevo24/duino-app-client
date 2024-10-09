@@ -57,6 +57,8 @@ export default {
   computed: {
     currentProject() {
       const { Project } = this.$FeathersVuex.api;
+      console.log(this.$store.getters.currentProject, 'currentProject');
+      console.log(Project.findInStore({ query: { uuid: this.$store.getters.currentProject } }), 'Project.findInStore({ query: { uuid: this.$store.getters.currentProject } })');
       return Project.findInStore({ query: { uuid: this.$store.getters.currentProject } }).data[0] || {};
     },
   },
